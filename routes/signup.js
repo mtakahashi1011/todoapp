@@ -14,3 +14,5 @@ router.post('/', function (req, res, next) {
     const password = req.body.password;
     const repassword = req.body.repassword;
 });
+
+module.exports = router;
