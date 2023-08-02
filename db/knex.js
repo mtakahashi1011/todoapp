@@ -1,6 +1,6 @@
 const enviroment = "development";
 
-const config = rquire("../knexfile.js")[enviroment];
+const config = require("../knexfile.js")[enviroment];
 
 const knex = require("knex")(config);
 
