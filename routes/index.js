@@ -48,4 +48,6 @@ router.post('/', function(req, res, next) {
   );
 });
 
+router.use('/sinup', require('./signup'));
+
 module.exports = router;
