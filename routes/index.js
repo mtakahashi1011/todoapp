@@ -50,21 +50,36 @@ router.get('/', function(req, res, next) {
     });
 });
 
+// router.post('/', function(req, res, next) {
+//   connection.connect((err) => {
+//     if (err) {
+//       console.log('error connecting: ' + err.stack);
+//       return;
+//     }
+//     console.log('success');
+//   })
+//   const todo = req.body.add;
+//   connection.query(`INSERT INTO tasks (user_id, content) VALUES (1, '${todo}');`,
+//     (error, results) => {
+//       console.log(error);
+//       res.redirect('/');
+//     }
+//   );
+// });
+
 router.post('/', function(req, res, next) {
-  connection.connect((err) => {
-    if (err) {
-      console.log('error connecting: ' + err.stack);
-      return;
-    }
-    console.log('success');
-  })
   const todo = req.body.add;
-  connection.query(`INSERT INTO tasks (user_id, content) VALUES (1, '${todo}');`,
-    (error, results) => {
-      console.log(error);
+  knex("tasks")
+    .insert({user_id: 1, content:todo})
+    .then(function() {
       res.redirect('/');
-    }
-  );
+    })
+    .catch(function(err) {
+      console.error(err);
+      res.render('index', {
+        title: 'ToDo App',
+      });
+    });
 });
 
 router.use('/signup', require('./signup'));
