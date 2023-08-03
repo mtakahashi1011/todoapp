@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const knex = require('../db/knex');
 
 const connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
-  password: '',
+  user: 'todoapp',
+  password: 'password',
   database: 'todo_app'
 });
 
