@@ -3,14 +3,19 @@ const router = express.Router();
 const knex = require('../db/knex');
 
 router.get('/', function (req, res, next) {
+    const userId = req.session.userid;
+    const isAuth = Boolean(userId);
     res.render('signup', {
-        title: 'Sign up'
+        title: 'Sign up',
+        isAuth: isAuth
     });
 });
 
 router.post('/', function (req, res, next) {
     console.log(req);
     //console.log(req.body);
+    const userId = req.session.userid;
+    const isAuth = Boolean(userId);
     const username = req.body.username;
     const password = req.body.password;
     const repassword = req.body.repassword;
@@ -23,7 +28,8 @@ router.post('/', function (req, res, next) {
                 console.log("This username is already used!");
                 res.render("signup", {
                     title: "Sign up",
-                    errorMessage: ["This username is already used"]
+                    errorMessage: ["This username is already used"],
+                    isAuth: isAuth
                 });
             } else if (password == repassword) {
                 knex("users")
@@ -36,14 +42,16 @@ router.post('/', function (req, res, next) {
                         console.error(err);
                         res.render("signup", {
                             title: "Sign up",
-                            errorMessage: [err.sqlMessage]
+                            errorMessage: [err.sqlMessage],
+                            isAuth: isAuth
                         });
                     });
             } else {
                 console.log("Passwords do not match!");
                 res.render("signup", {
                     title: "Sign up",
-                    errorMessage: ["Passwords do not match"]
+                    errorMessage: ["Passwords do not match"],
+                    isAuth: isAuth
                 });
             }
         })
@@ -52,7 +60,8 @@ router.post('/', function (req, res, next) {
             console.error(err);
             res.render("signup", {
                 title: "Sign up",
-                errorMessage: [err.sqlMessage]
+                errorMessage: [err.sqlMessage],
+                isAuth: isAuth
             });
         });
 });
