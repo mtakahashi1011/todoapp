@@ -4,7 +4,7 @@ const knex = require('../db/knex');
 const bcrypt = require('bcrypt');
 
 router.get('/', function (req, res, next) {
-    const userId = req.session.userid;
+    const userId = req.session.userId;
     const isAuth = Boolean(userId);
     res.render('signup', {
         title: 'Sign up',
@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     console.log(req);
     //console.log(req.body);
-    const userId = req.session.userid;
+    const userId = req.session.userId;
     const isAuth = Boolean(userId);
     const username = req.body.username;
     const password = req.body.password;
